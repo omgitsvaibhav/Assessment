@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import strongPassword from "./RegExp";
 import PasswordCheckList from "./PasswordCheckList";
+import axios from "axios";
+
 
 export default function PasswordCheck() {
-  const [isValid, SetisValid] = useState(null);
+  const [isValid, SetisValid] = useState(false);
   const [passwordText, SetpasswordText] = useState("");
   const [passwordSteps, SetpasswordSteps] = useState(0);
   const [passwordValue, SetpasswordValue] = useState("");
@@ -43,8 +45,21 @@ export default function PasswordCheck() {
   }, [isValid, passwordValue, passwordSteps, passwordText]);
 
   function HandlePassword(event) {
-    //console.log(event.target.value);
     SetpasswordValue(event.target.value);
+  }
+
+  function handleSubmit() {
+    axios
+      .post("http://localhost:8000/api/v1/password/storepassword", {
+        password: passwordValue,
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(`error occurred in saving password: ${error}`);
+      });
   }
 
   return (
@@ -60,12 +75,17 @@ export default function PasswordCheck() {
           />
         </div>
         <div id="Password-validator">
-          {passwordValue.length === 0 && <p>Enter password to check validity</p>}
+          {passwordValue.length === 0 && (
+            <p>Enter password to check validity</p>
+          )}
           {passwordValue.length > 0 && <p>{passwordText}</p>}
         </div>
         <div id="password-steps">
           {isValid && <p>Steps: {passwordSteps}</p>}
           {passwordSteps > 0 && !isValid && <p>Steps: {passwordSteps}</p>}
+        </div>
+        <div className="save-password">
+          <button disabled={!isValid} onClick={handleSubmit}>Save</button>
         </div>
       </form>
       <PasswordCheckList />
