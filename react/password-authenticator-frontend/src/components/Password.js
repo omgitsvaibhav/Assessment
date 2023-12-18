@@ -62,7 +62,7 @@ export default function PasswordCheck() {
           />
         </div>
         <div id="Password-validator">
-        {passwordValue.length===0 && <p>{passwordText}</p>}
+          {passwordValue.length === 0 && <p>{passwordText}</p>}
           {passwordValue.length > 0 && <p>{passwordText}</p>}
         </div>
         <div id="password-steps">
