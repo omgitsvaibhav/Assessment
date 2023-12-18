@@ -4,9 +4,7 @@ import PasswordCheckList from "./PasswordCheckList";
 
 export default function PasswordCheck() {
   const [isValid, SetisValid] = useState(null);
-  const [passwordText, SetpasswordText] = useState(
-    "Enter Password to check validity"
-  );
+  const [passwordText, SetpasswordText] = useState("");
   const [passwordSteps, SetpasswordSteps] = useState(0);
   const [passwordValue, SetpasswordValue] = useState("");
 
@@ -62,7 +60,7 @@ export default function PasswordCheck() {
           />
         </div>
         <div id="Password-validator">
-          {passwordValue.length === 0 && <p>{passwordText}</p>}
+          {passwordValue.length === 0 && <p>Enter password to check validity</p>}
           {passwordValue.length > 0 && <p>{passwordText}</p>}
         </div>
         <div id="password-steps">

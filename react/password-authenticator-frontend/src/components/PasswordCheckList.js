@@ -7,6 +7,7 @@ export default function PasswordCheckList(){
                 <li>Password should contain atleast one uppercase character</li>
                 <li>Password should contain atleast one number</li>
                 <li>Password should contain atleast one special character</li>
+                <li>Password should not contain three consecutive repeating character</li>
             </ul>
         </div>
     );
