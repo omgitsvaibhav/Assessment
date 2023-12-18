@@ -69,24 +69,22 @@ export default function PasswordCheck() {
     <div className="password-container">
       <form onSubmit={handleSubmit}>
         <div className="password-input">
-          <label>Password</label>
           <input
             type="password"
             id="passwordinput"
             value={passwordValue}
             onChange={HandlePassword}
+            placeholder="Enter Password"
             required
           />
         </div>
         <div id="Password-validator">
-          {passwordValue.length === 0 && (
-            <p>Enter password to check validity</p>
-          )}
-          {passwordValue.length > 0 && <p>{passwordText}</p>}
+          {passwordValue.length > 0 && isValid && <p className="strong">{passwordText}</p>}
+          {passwordValue.length > 0 && !isValid && <p className="weak">{passwordText}</p>}
         </div>
         <div id="password-steps">
-          {isValid && <p>Steps: {passwordSteps}</p>}
-          {passwordSteps > 0 && !isValid && <p>Steps: {passwordSteps}</p>}
+          {isValid && <p>Steps : {passwordSteps}</p>}
+          {passwordSteps > 0 && !isValid && <p>Steps : {passwordSteps}</p>}
         </div>
         <div className="save-password">
           <button type="submit" disabled={!isValid}>
