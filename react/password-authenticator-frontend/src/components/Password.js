@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import strongPassword from "./RegExp";
 import PasswordCheckList from "./PasswordCheckList";
 import axios from "axios";
-
+import "./Password.css";
 
 export default function PasswordCheck() {
   const [isValid, SetisValid] = useState(false);
@@ -55,14 +55,14 @@ export default function PasswordCheck() {
         password: passwordValue,
       })
       .then((response) => {
-        const {data, status} = response;
+        const { data, status } = response;
         console.log(`message: ${data.message}, status: ${status}`);
         alert("Password saved successfully!");
       })
       .catch((error) => {
         console.error(`error occurred in saving password: ${error}`);
       });
-      SetpasswordValue("");
+    SetpasswordValue("");
   }
 
   return (
@@ -89,7 +89,9 @@ export default function PasswordCheck() {
           {passwordSteps > 0 && !isValid && <p>Steps: {passwordSteps}</p>}
         </div>
         <div className="save-password">
-          <button type="submit" disabled={!isValid}>Save</button>
+          <button type="submit" disabled={!isValid}>
+            Save
+          </button>
         </div>
       </form>
       <PasswordCheckList />

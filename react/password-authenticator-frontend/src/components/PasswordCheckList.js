@@ -1,3 +1,5 @@
+import './PasswordCheckList.css'
+
 export default function PasswordCheckList(){
     return(
         <div className="ckecklist-container">
