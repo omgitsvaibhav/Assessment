@@ -48,28 +48,32 @@ export default function PasswordCheck() {
     SetpasswordValue(event.target.value);
   }
 
-  function handleSubmit() {
+  function handleSubmit(event) {
+    event.preventDefault();
     axios
       .post("http://localhost:8000/api/v1/password/storepassword", {
         password: passwordValue,
       })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
+      .then((response) => {
+        const {data, status} = response;
+        console.log(`message: ${data.message}, status: ${status}`);
+        alert("Password saved successfully!");
       })
       .catch((error) => {
         console.error(`error occurred in saving password: ${error}`);
       });
+      SetpasswordValue("");
   }
 
   return (
     <div className="password-container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="password-input">
           <label>Password</label>
           <input
             type="password"
             id="passwordinput"
+            value={passwordValue}
             onChange={HandlePassword}
             required
           />
@@ -85,7 +89,7 @@ export default function PasswordCheck() {
           {passwordSteps > 0 && !isValid && <p>Steps: {passwordSteps}</p>}
         </div>
         <div className="save-password">
-          <button disabled={!isValid} onClick={handleSubmit}>Save</button>
+          <button type="submit" disabled={!isValid}>Save</button>
         </div>
       </form>
       <PasswordCheckList />
